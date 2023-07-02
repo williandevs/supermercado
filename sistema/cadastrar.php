@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once("../conexao.php");
 
@@ -6,73 +6,64 @@ $nome = $_POST['nome'];
 $cpf = $_POST['cpf'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
-$senha_crip = md5($senha);
+$confirmarSenha = $_POST['confirmar-senha'];
 
-if($nome == ""){
-	echo 'Preencha o Campo nome!';
-	exit();
+// Verificar se todos os campos foram preenchidos
+if (empty($nome) || empty($cpf) || empty($email) || empty($senha) || empty($confirmarSenha)) {
+    echo 'Preencha todos os campos!';
+    exit();
 }
 
-if($cpf == ""){
-	echo 'Preencha o Campo cpf!';
-	exit();
+// Verificar se as senhas coincidem
+if ($senha !== $confirmarSenha) {
+    echo 'As senhas não coincidem!';
+    exit();
 }
 
-if($email == ""){
-	echo 'Preencha o Campo email!';
-	exit();
-}
-
-if($senha == ""){
-	echo 'Preencha o Campo senha!';
-	exit();
-}
-
-if($senha != $_POST['confirmar-senha']){
-	echo 'As senhas não coincidem!';
-	exit();
-}
-
-
-
-$res = $pdo->query("SELECT * FROM usuarios where cpf = '$_POST[cpf]'"); 
+// Verificar se o CPF já está cadastrado
+$res = $pdo->prepare("SELECT * FROM usuarios WHERE cpf = :cpf");
+$res->bindValue(":cpf", $cpf);
+$res->execute();
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
-if(@count($dados) == 0){
 
-	$res = $pdo->prepare("INSERT into usuarios (nome, cpf, email, senha, senha_crip, nivel) values (:nome, :cpf, :email, :senha, :senha_crip, :nivel)");
-	$res->bindValue(":nome", $nome);
-	$res->bindValue(":email", $email);
-	$res->bindValue(":cpf", $cpf);
-	$res->bindValue(":senha", $senha);
-	$res->bindValue(":senha_crip", $senha_crip);
-	$res->bindValue(":nivel", 'Cliente');
-
-	$res->execute();
-
-
-	$res = $pdo->prepare("INSERT into clientes (nome, cpf, email) values (:nome, :cpf, :email)");
-	$res->bindValue(":nome", $nome);
-	$res->bindValue(":email", $email);
-	$res->bindValue(":cpf", $cpf);
-	
-	$res->execute();
-
-
-	$res = $pdo->query("SELECT * FROM emails where email = '$email'"); 
-	$dados = $res->fetchAll(PDO::FETCH_ASSOC);
-	if(@count($dados) == 0){
-	$res = $pdo->prepare("INSERT into emails (nome, email, ativo) values (:nome, :email, :ativo)");
-	$res->bindValue(":nome", $nome);
-	$res->bindValue(":email", $email);
-	$res->bindValue(":ativo", "Sim");
-	$res->execute();
+if (count($dados) > 0) {
+    echo 'CPF já cadastrado!';
+    exit();
 }
 
+// Gerar hash da senha
+$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-	echo 'Cadastrado com Sucesso!';
-}else{
-	echo 'CPF já Cadastrado!';
+// Inserir dados na tabela de usuários
+$res = $pdo->prepare("INSERT INTO usuarios (nome, cpf, email, senha, senha_crip, nivel) VALUES (:nome, :cpf, :email, :senha, :senha_crip, :nivel)");
+$res->bindValue(":nome", $nome);
+$res->bindValue(":cpf", $cpf);
+$res->bindValue(":email", $email);
+$res->bindValue(":senha", $senha);
+$res->bindValue(":senha_crip", $senhaHash);
+$res->bindValue(":nivel", 'Cliente');
+$res->execute();
+
+// Inserir dados na tabela de clientes
+ $res = $pdo->prepare("INSERT INTO clientes (nome, cpf, email) VALUES (:nome, :cpf, :email)");
+$res->bindValue(":nome", $nome);
+$res->bindValue(":cpf", $cpf);
+$res->bindValue(":email", $email);
+$res->execute(); 
+
+// Verificar se o email já está cadastrado
+ $res = $pdo->prepare("SELECT * FROM emails WHERE email = :email");
+$res->bindValue(":email", $email);
+$res->execute();
+$dados = $res->fetchAll(PDO::FETCH_ASSOC); 
+
+ if (count($dados) == 0) {
+    $res = $pdo->prepare("INSERT INTO emails (nome, email, ativo) VALUES (:nome, :email, :ativo)");
+    $res->bindValue(":nome", $nome);
+    $res->bindValue(":email", $email);
+    $res->bindValue(":ativo", "Sim");
+    $res->execute();
 }
-
-
+ 
+echo 'Cadastrado com Sucesso!';
 ?>

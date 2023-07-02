@@ -1,5 +1,5 @@
 <?php
-$pag = "sub-categorias";
+$pag = "tipo-envios";
 require_once("../../conexao.php");
 @session_start();
 //verificar se o usuário está autenticado
@@ -11,8 +11,7 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
 ?>
 
 <div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Sub-Categoria</a>
-
+    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo tipo</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
 
 </div>
@@ -21,60 +20,38 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Produtos</th>
-                        <th>Categoria</th>
-                        <th>Imagem</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
 
                 <tbody>
-
                     <?php
-                    $query = $pdo->query("SELECT * FROM sub_categorias ORDER BY id DESC");
+
+                    $query = $pdo->query("SELECT * FROM tipo_envios order by id desc ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                    foreach ($res as $row) {
-                        $nome = $row['nome'];
-                        $imagem = $row['imagem'];
-                        $categoria = $row['id_categoria'];
-                        $id = $row['id'];
+                    for ($i = 0; $i < count($res); $i++) {
+                        foreach ($res[$i] as $key => $value) {
+                        }
 
-                        // Recuperar o nome da categoria usando uma consulta preparada
-                        $query2 = $pdo->prepare("SELECT nome FROM categorias WHERE id = :categoria");
-                        $query2->bindParam(':categoria', $categoria);
-                        $query2->execute();
-                        $res2 = $query2->fetch(PDO::FETCH_ASSOC);
-                        $nome_cat = $res2['nome'];
-
-                        // Recuperar o total de itens usando uma consulta preparada
-                        $query3 = $pdo->prepare("SELECT COUNT(*) AS total_itens FROM produtos WHERE sub_categoria = :id");
-                        $query3->bindParam(':id', $id);
-                        $query3->execute();
-                        $res3 = $query3->fetch(PDO::FETCH_ASSOC);
-                        $itens = $res3['total_itens'];
+                        $nome = $res[$i]['nome'];
+                        $id = $res[$i]['id'];
                     ?>
+
                         <tr>
                             <td><?php echo $nome ?></td>
-                            <td><?php echo $itens ?></td>
-                            <td><?php echo $nome_cat ?></td>
-                            <td><img src="../../assets/images/sub-categoria/<?php echo $imagem ?>" class="img-fluid" width="50"></td>
                             <td>
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
-
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
                             </td>
                         </tr>
-                    <?php
-                    }
-                    ?>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -91,17 +68,15 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
         <div class="modal-content">
             <div class="modal-header">
                 <?php
-                
                 if (@$_GET['funcao'] == 'editar') {
                     $titulo = "Editar Registro";
                     $id2 = $_GET['id'];
 
-                    $query = $pdo->query("SELECT * FROM sub_categorias where id = '" . $id2 . "' ");
+                    $query = $pdo->query("SELECT * FROM tipo_envios where id = '" . $id2 . "' ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     $nome2 = $res[0]['nome'];
-                    $imagem2 = $res[0]['imagem'];
-                    $categoria2 = $res[0]['id_categoria'];
+                   
                 } else {
                     $titulo = "Inserir Registro";
                 }
@@ -119,48 +94,11 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
 
                     <div class="form-group">
                         <label>Nome</label>
-                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control form-control-sm" id="nome-cat" name="nome-cat" placeholder="Nome">
+                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-cat" name="nome-cat" placeholder="Nome">
                     </div>
 
-                    <div class="form-group">
-                        <label>Categoria</label>
-                        <select class="form-control form-control-sm" name="categoria" id="categoria">
-                            <?php
-                            if (@$_GET['funcao'] == 'editar') {
-                                $query = $pdo->query("SELECT * from categorias where id = '$categoria2' ");
-                                $res = $query->fetchAll(PDO::FETCH_ASSOC);
-                                $nomeCat = $res[0]['nome'];
-                                echo "<option value='" . $categoria2 . "' >" . $nomeCat . "</option>";
-                            }
-
-                            $query2 = $pdo->query("SELECT * from categorias order by nome asc ");
-                            $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                            for ($i = 0; $i < count($res2); $i++) {
-                                foreach ($res2[$i] as $key => $value) {
-                                }
-
-                                if (@$nomeCat != $res2[$i]['nome']) {
-                                    echo "<option value='" . $res2[$i]['id'] . "' >" . $res2[$i]['nome'] . "</option>";
-                                }
-                            }
-
-
-                        ?>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Imagem</label>
-                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
-                    </div>
-
-
-                    <?php if (@$imagem2 != "") { ?>
-                        <img src="../../assets/images/sub-categoria/<?php echo $imagem2 ?>" class="img-fluid" width="200" height="200" id="target">
-                    <?php  } else { ?>
-                        <img src="../../assets/images/sub-categoria/sem-foto.png" width="200" height="200" id="target">
-                    <?php } ?>
-
+                   
+                   
 
 
 
@@ -368,3 +306,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
     });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+<script src="../../js/mascara.js"></script>

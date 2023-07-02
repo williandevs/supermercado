@@ -2,7 +2,7 @@
 
 
 <style>
-   label span {
+    label span {
         color: red;
         font-weight: bold;
     }
@@ -162,6 +162,20 @@
                                 <h4 class="price">R$88.71</h4>
                             </li>
                         </ul>
+                    </div>
+
+
+                    <div class="col-lg-4">
+                        <div class="right-side-summery-box">
+                            <div>
+                                <form action="calcular_frete.php" method="post">
+                                    <label for="cep">CEP de entrega:</label>
+                                    <input type="text" id="cep" name="cep" required>
+                                    <button type="submit">Calcular Frete</button>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
 
 

@@ -5,10 +5,13 @@ require_once("../../../conexao.php");
 $nome = $_POST['nome-cat'];
 $id_cat = $_POST['categoria'];
 
-$nome_novo = strtolower( preg_replace("[^a-zA-Z0-9-]", "-", 
-        strtr(utf8_decode(trim($nome)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
-        "aaaaeeiooouuncAAAAEEIOOOUUNC-")) );
-$nome_url = preg_replace('/[ -]+/' , '-' , $nome_novo);
+$nome = preg_replace('/[^a-zA-Z0-9áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ\s-]/u', '', $nome);
+$nome = strtolower($nome);
+$nome = preg_replace('/\s+/', '-', $nome);
+
+$nome_url = $nome;
+
+
 
 $antigo = $_POST['antigo'];
 $id = $_POST['txtid2'];
@@ -19,14 +22,6 @@ if($nome == ""){
 }
 
 
-if($nome != $antigo){
-	$res = $pdo->query("SELECT * FROM sub_categorias where nome = '$nome'"); 
-	$dados = $res->fetchAll(PDO::FETCH_ASSOC);
-	if(@count($dados) > 0){
-			echo 'SubCategoria já Cadastrada no Banco!';
-			exit();
-		}
-}
 
 
 //SCRIPT PARA SUBIR FOTO NO BANCO

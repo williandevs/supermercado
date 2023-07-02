@@ -1,71 +1,69 @@
 <?php
 
-require_once("../../../conexao.php"); 
+require_once("../../../conexao.php");
 
 $nome = $_POST['nome-cat'];
 
-$nome_novo = strtolower( preg_replace("[^a-zA-Z0-9-]", "-", 
-        strtr(utf8_decode(trim($nome)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
-        "aaaaeeiooouuncAAAAEEIOOOUUNC-")) );
-$nome_url = preg_replace('/[ -]+/' , '-' , $nome_novo);
+$nome = preg_replace('/[^a-zA-Z0-9áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ\s-]/u', '', $nome);
+$nome = strtolower($nome);
+$nome = preg_replace('/\s+/', '-', $nome);
+$nome_url = $nome;
+
+$itens = isset($_POST['itens']) ? $_POST['itens'] : 0;
 
 $antigo = $_POST['antigo'];
 $id = $_POST['txtid2'];
 
-if($nome == ""){
-	echo 'Preencha o Campo Nome!';
-	exit();
+if ($nome == "") {
+    echo 'Preencha o Campo Nome!';
+    exit();
 }
 
-
-if($nome != $antigo){
-	$res = $pdo->query("SELECT * FROM categorias where nome = '$nome'"); 
-	$dados = $res->fetchAll(PDO::FETCH_ASSOC);
-	if(@count($dados) > 0){
-			echo 'Categoria já Cadastrada no Banco!';
-			exit();
-		}
+if ($nome != $antigo) {
+    $res = $pdo->query("SELECT * FROM categorias where nome = '$nome'");
+    $dados = $res->fetchAll(PDO::FETCH_ASSOC);
+    if (@count($dados) > 0) {
+        echo 'Categoria já Cadastrada no Banco!';
+        exit();
+    }
 }
 
-
-
-//SCRIPT PARA SUBIR FOTO NO BANCO
-$caminho = '../../../assets/images/categoria/' .@$_FILES['imagem']['name'];
-if (@$_FILES['imagem']['name'] == ""){
-  $imagem = "sem-foto.png";
-}else{
-  $imagem = @$_FILES['imagem']['name']; 
+// SCRIPT PARA SUBIR FOTO NO BANCO
+$caminho = '../../img/categoria/' . @$_FILES['imagem']['name'];
+if (@$_FILES['imagem']['name'] == "") {
+    $imagem = "sem-foto.png";
+} else {
+    $imagem = @$_FILES['imagem']['name'];
 }
 
-$imagem_temp = @$_FILES['imagem']['tmp_name']; 
+$imagem_temp = @$_FILES['imagem']['tmp_name'];
 
-$ext = pathinfo($imagem, PATHINFO_EXTENSION);   
-if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg'){ 
-move_uploaded_file($imagem_temp, $caminho);
-}else{
-	echo 'Extensão de Imagem não permitida!';
-	exit();
+$ext = pathinfo($imagem, PATHINFO_EXTENSION);
+if ($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg') {
+    move_uploaded_file($imagem_temp, $caminho);
+} else {
+    echo 'Extensão de Imagem não permitida!';
+    exit();
 }
 
-
-if($id == ""){
-	$res = $pdo->prepare("INSERT INTO categorias (nome, nome_url, imagem) VALUES (:nome, :nome_url, :imagem)");
-	$res->bindValue(":imagem", $imagem);
-}else{
-
-	if($imagem == "sem-foto.png"){
-		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url WHERE id = :id");
-	}else{
-		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url, imagem = :imagem WHERE id = :id");
-		$res->bindValue(":imagem", $imagem);
-	}
-
-	$res->bindValue(":id", $id);
+if ($id == "") {
+    $res = $pdo->prepare("INSERT INTO categorias (nome, nome_url, imagem, itens) VALUES (:nome, :nome_url, :imagem, :itens)");
+    $res->bindValue(":imagem", $imagem);
+} else {
+    if ($imagem == "sem-foto.png") {
+        $res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url, itens = :itens WHERE id = :id");
+    } else {
+        $res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url, itens = :itens, imagem = :imagem WHERE id = :id");
+        $res->bindValue(":imagem", $imagem);
+    }
+    $res->bindValue(":id", $id);
 }
 
-	$res->bindValue(":nome", $nome);
-	$res->bindValue(":nome_url", $nome_url);
-	$res->execute();
+$res->bindValue(":nome", $nome);
+$res->bindValue(":nome_url", $nome_url);
+$res->bindValue(":itens", $itens);
 
+$res->execute();
 
 echo 'Salvo com Sucesso!!';
+?>

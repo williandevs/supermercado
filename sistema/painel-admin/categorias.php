@@ -6,21 +6,15 @@ require_once("../../conexao.php");
 if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') {
     echo "<script language='javascript'> window.location='../index.php' </script>";
 }
-
-
 ?>
 
 <div class="row mt-4 mb-4">
     <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
-
 </div>
-
-
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -32,8 +26,9 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
                         <th>Ações</th>
                     </tr>
                 </thead>
-
                 <tbody>
+
+
                     <?php
 
                     $query = $pdo->query("SELECT * FROM categorias order by id desc ");
@@ -44,23 +39,18 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
                         }
 
                         $nome = $res[$i]['nome'];
+                        $itens = $res[$i]['itens'];
                         $imagem = $res[$i]['imagem'];
                         $id = $res[$i]['id'];
 
-                        //trazer o total de itens
-                        $query2 = $pdo->query("SELECT * FROM sub_categorias where id_categoria = '$id' ");
-                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                        $itens = @count($res2);
 
                     ?>
-
-
 
 
                         <tr>
                             <td><?php echo $nome ?></td>
                             <td><?php echo $itens ?></td>
-                            <td><img src="../../assets/images/categoria/<?php echo $imagem ?>" class="img-fluid" width="50"></td>
+                            <td><img src="../img/categoria/<?php echo $imagem ?>" width="50"></td>
 
 
                             <td>
@@ -71,18 +61,11 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
                     <?php } ?>
 
 
-
-
-
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,29 +74,27 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
             <div class="modal-header">
                 <?php
                 if (@$_GET['funcao'] == 'editar') {
-                    $titulo = "Editar Registro";
+                    $titulo = "Editar Categoria";
                     $id2 = $_GET['id'];
 
-                    $query = $pdo->query("SELECT * FROM categorias where id = '" . $id2 . "' ");
+                    $query = $pdo->query("SELECT * FROM categorias WHERE id = '" . $id2 . "'");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     $nome2 = $res[0]['nome'];
                     $imagem2 = $res[0]['imagem'];
                 } else {
-                    $titulo = "Inserir Registro";
+                    $titulo = "Inserir Nova Categoria";
                 }
-
-
                 ?>
-
                 <h5 class="modal-title" id="exampleModalLabel"><?php echo $titulo ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
-            <form id="form" method="POST">
-                <div class="modal-body">
 
+            </div>
+
+            <form id="form" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
                     <div class="form-group">
                         <label>Nome</label>
                         <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-cat" name="nome-cat" placeholder="Nome">
@@ -121,31 +102,20 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
 
                     <div class="form-group">
                         <label>Imagem</label>
-                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+                        <input type="file" class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
                     </div>
+
                     <?php if (@$imagem2 != "") { ?>
-                        <img src="../../assets/images/categoria/<?php echo $imagem2 ?>" class="img-fluid" width="200" height="200" id="target">
+                        <img src="../img/categoria/<?php echo $imagem2 ?>" class="img-fluid" width="200" height="200" id="target">
                     <?php  } else { ?>
-                        <img src="../../assets/images/categoria/sem-foto.png" width="200" height="200" id="target">
+                        <img src="../img/categoria/sem-foto.png" width="200" height="200" id="target">
                     <?php } ?>
 
-
-
-
                     <small>
-                        <div id="mensagem">
-
-                        </div>
+                        <div id="mensagem"></div>
                     </small>
-
                 </div>
-
-
-
                 <div class="modal-footer">
-
-
-
                     <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
                     <input value="<?php echo @$nome2 ?>" type="hidden" name="antigo" id="antigo">
 
@@ -153,14 +123,10 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
                     <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
-
-
-
-
-
 
 <div class="modal" id="modal-deletar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -172,20 +138,13 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
                 </button>
             </div>
             <div class="modal-body">
-
-                <p>Deseja realmente Excluir este Registro?</p>
-
-                <div align="center" id="mensagem_excluir" class="">
-
-                </div>
-
+                <p>Deseja realmente excluir este registro?</p>
+                <div align="center" id="mensagem_excluir" class=""></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
                 <form method="post">
-
                     <input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
-
                     <button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
                 </form>
             </div>
@@ -193,12 +152,7 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
     </div>
 </div>
 
-
-
-
-
 <?php
-
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
     echo "<script>$('#modalDados').modal('show');</script>";
 }
@@ -210,10 +164,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     echo "<script>$('#modal-deletar').modal('show');</script>";
 }
-
 ?>
-
-
 
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
@@ -234,8 +185,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
                 if (mensagem.trim() == "Salvo com Sucesso!!") {
 
-                    //$('#nome').val('');
-                    //$('#cpf').val('');
                     $('#btn-fechar').click();
                     window.location = "index.php?pag=" + pag;
 
@@ -263,80 +212,51 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
         });
     });
 </script>
-
-
-
-
-
-<!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
     $(document).ready(function() {
         var pag = "<?= $pag ?>";
         $('#btn-deletar').click(function(event) {
             event.preventDefault();
-
             $.ajax({
                 url: pag + "/excluir.php",
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
                 success: function(mensagem) {
-
                     if (mensagem.trim() === 'Excluído com Sucesso!!') {
-
-
                         $('#btn-cancelar-excluir').click();
                         window.location = "index.php?pag=" + pag;
                     }
-
                     $('#mensagem_excluir').text(mensagem)
-
-
-
                 },
-
             })
         })
     })
 </script>
 
-
-
-<!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
     function carregarImg() {
-
         var target = document.getElementById('target');
         var file = document.querySelector("input[type=file]").files[0];
         var reader = new FileReader();
-
         reader.onloadend = function() {
             target.src = reader.result;
         };
-
         if (file) {
             reader.readAsDataURL(file);
-
-
         } else {
             target.src = "";
         }
     }
 </script>
 
-
-
-
-
 <script type="text/javascript">
     $(document).ready(function() {
         $('#dataTable').dataTable({
             "ordering": false
         })
-
     });
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
 <script src="../../js/mascara.js"></script>

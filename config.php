@@ -1,7 +1,7 @@
 <?php 
 
 //VARIÁVEIS GLOBAIS
-$email = 'suport@mercado.com.br';
+$email = 'willianfig32@gmail.com';
 $telefone = '(11) 3333-3333';
 $whatsapp = '(11) 94899-7117';
 $whatsapp_link = '5511948997117';
@@ -14,7 +14,7 @@ $endereco_loja = 'Rua Alameda Campos, Número 100, Bairro Centro, Taboão da Ser
  $servidor = 'localhost';
 $usuario = 'root';
 $senha = '';
-$banco = 'mercado'; 
+$banco = 'loja'; 
 
 
 

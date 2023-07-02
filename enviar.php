@@ -16,6 +16,10 @@ if ($_POST['mensagem'] == "") {
 	echo 'Preecha o Campo Mensagem';
 	exit();
 }
+if ($_POST['assunto'] == "") {
+	echo 'Preecha o Campo Assunto';
+	exit();
+}
 
 
 $destinatario = $email;

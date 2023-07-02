@@ -32,19 +32,12 @@ if($email == ""){
 	exit();
 }
 
-if($senha != $_POST['conf-senha']){
+if($senha != $_POST['confirmar-senha']){
 	echo 'As senhas não coincidem!';
 	exit();
 }
 
-if($cpf != $antigo){
-	$res = $pdo->query("SELECT * FROM usuarios where cpf = '$cpf'"); 
-	$dados = $res->fetchAll(PDO::FETCH_ASSOC);
-	if(@count($dados) > 0){
-			echo 'CPF já Cadastrado no Banco!';
-			exit();
-		}
-}
+
 
 
 $res = $pdo->prepare("UPDATE usuarios SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, senha_crip = :senha_crip WHERE id = :id");
