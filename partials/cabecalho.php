@@ -11,7 +11,7 @@
      <meta name="description" content="Fastkart">
      <meta name="keywords" content="Fastkart">
      <meta name="author" content="Fastkart">
-     <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+     <link rel="icon" href="assets/images/favicon/1.png" type="image/x-icon">
      <title> loja - <?php echo $nome_loja ?></title>
 
      <Google font -->
@@ -28,27 +28,27 @@
          <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
 
          <!-- bootstrap css -->
-         <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+         <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
 
          <!-- wow css -->
-         <link rel="stylesheet" href="../assets/css/animate.min.css" />
+         <link rel="stylesheet" href="assets/css/animate.min.css" />
 
          <!-- font-awesome css -->
-         <link rel="stylesheet" type="text/css" href="../assets/css/vendors/font-awesome.css">
+         <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
 
          <!-- feather icon css -->
-         <link rel="stylesheet" type="text/css" href="../assets/css/vendors/feather-icon.css">
+         <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
 
          <!-- slick css -->
-         <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick/slick.css">
-         <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick/slick-theme.css">
+         <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick.css">
+         <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick-theme.css">
 
          <!-- Iconly css -->
-         <link rel="stylesheet" type="text/css" href="../assets/css/bulk-style.css">
-         <link rel="stylesheet" type="text/css" href="../assets/css/vendors/animate.css">
+         <link rel="stylesheet" type="text/css" href="assets/css/bulk-style.css">
+         <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
 
          <!-- Template css -->
-         <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+         <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 
 
@@ -186,7 +186,7 @@
 
                                          <li class="onhover-category-list">
                                              <a href="javascript:void(0)" class="category-name">
-                                                 <!--    <img src="../assets/svg/1/cup.svg" alt=""> -->
+                                                 <!--    <img src="assets/svg/1/cup.svg" alt=""> -->
                                                  <h6>Bebidas</h6>
                                                  <i class="fa-solid fa-angle-right"></i>
                                              </a>
@@ -352,7 +352,7 @@
 
                                          <li class="onhover-category-list">
                                              <a href="javascript:void(0)" class="category-name">
-                                                 <!-- <img src="../assets/svg/1/frozen.svg" alt=""> -->
+                                                 <!-- <img src="assets/svg/1/frozen.svg" alt=""> -->
                                                  <h6>Alimentos congelados</h6>
                                                  <i class="fa-solid fa-angle-right"></i>
                                              </a>
@@ -385,7 +385,7 @@
 
                                          <li class="onhover-category-list">
                                              <a href="javascript:void(0)" class="category-name">
-                                                 <!--   <img src="../assets/svg/1/biscuit.svg" alt=""> -->
+                                                 <!--   <img src="assets/svg/1/biscuit.svg" alt=""> -->
                                                  <h6>Biscoitos e Bolhachas</h6>
                                                  <i class="fa-solid fa-angle-right"></i>
                                              </a>

@@ -8,7 +8,7 @@
 
     <a href="index.html" class="web-logo nav-logo">
         <a href="index.php">
-            <img src="../assets/images/supermacado.png" class="img-fluid " alt="">
+            <img src="assets/images/supermacado.png" class="img-fluid " alt="">
         </a>
 
     </a>
@@ -83,7 +83,7 @@
             <li class="right-side onhover-dropdown">
                 <div class="delivery-login-box">
                     <div class="delivery-icon">
-                        <a href="../sistema/index.php">
+                        <a href="admin/index.php">
                             <i data-feather="user"></i>
                         </a>
                     </div>

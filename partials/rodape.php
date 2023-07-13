@@ -8,7 +8,7 @@
             <div class="row g-md-4 gy-sm-5 gy-2">
                 <div class="col-xxl-3 col-xl-4 col-sm-6">
                     <a href="index.html" class="foot-logo">
-                        <img src="../assets/images/supermacado.png" class="img-fluid" alt="">
+                        <img src="assets/images/supermacado.png" class="img-fluid" alt="">
                     </a>
                     <p class="information-text">it is a long established fact that a reader will be distracted
                         by the readable content.</p>
@@ -44,12 +44,12 @@
                         <ul>
                             <li>
                                 <a href="https://play.google.com/store/apps" target="_blank">
-                                    <img src="../assets/images/playstore.svg" class="blur-up lazyload" alt="">
+                                    <img src="assets/images/playstore.svg" class="blur-up lazyload" alt="">
                                 </a>
                             </li>
                             <li>
                                 <a href="https://www.apple.com/in/app-store/" target="_blank">
-                                    <img src="../assets/images/appstore.svg" class="blur-up lazyload" alt="">
+                                    <img src="assets/images/appstore.svg" class="blur-up lazyload" alt="">
                                 </a>
                             </li>
                         </ul>
@@ -125,19 +125,19 @@
             <div class="right-footer">
                 <ul class="payment-box">
                     <li>
-                        <img src="../assets/images/icon/paymant/visa.png" alt="">
+                        <img src="assets/images/icon/paymant/visa.png" alt="">
                     </li>
                     <li>
-                        <img src="../assets/images/icon/paymant/discover.png" alt="">
+                        <img src="assets/images/icon/paymant/discover.png" alt="">
                     </li>
                     <li>
-                        <img src="../assets/images/icon/paymant/american.png" alt="">
+                        <img src="assets/images/icon/paymant/american.png" alt="">
                     </li>
                     <li>
-                        <img src="../assets/images/icon/paymant/master-card.png" alt="">
+                        <img src="assets/images/icon/paymant/master-card.png" alt="">
                     </li>
                     <li>
-                        <img src="../assets/images/icon/paymant/giro-pay.png" alt="">
+                        <img src="assets/images/icon/paymant/giro-pay.png" alt="">
                     </li>
                 </ul>
             </div>
@@ -426,7 +426,7 @@
 <!--  <div class="cookie-bar-box">
         <div class="cookie-box">
             <div class="cookie-image">
-                <img src="../assets/images/cookie-bar.png" class="blur-up lazyload" alt="">
+                <img src="assets/images/cookie-bar.png" class="blur-up lazyload" alt="">
                 <h2>Cookies!</h2>
             </div>
 
@@ -478,51 +478,51 @@
 <!-- Bg overlay End -->
 
 <!-- latest jquery-->
-<script src="../assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- jquery ui-->
-<script src="../assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
 
 <!-- Bootstrap js-->
-<script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/bootstrap/popper.min.js"></script>
+<script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap/popper.min.js"></script>
 
 <!-- feather icon js-->
-<script src="../assets/js/feather/feather.min.js"></script>
-<script src="../assets/js/feather/feather-icon.js"></script>
+<script src="assets/js/feather/feather.min.js"></script>
+<script src="assets/js/feather/feather-icon.js"></script>
 
 <!-- Lazyload Js -->
-<script src="../assets/js/lazysizes.min.js"></script>
+<script src="assets/js/lazysizes.min.js"></script>
 
 <!-- Slick js-->
-<script src="../assets/js/slick/slick.js"></script>
-<script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
-<script src="../assets/js/slick/custom_slick.js"></script>
+<script src="assets/js/slick/slick.js"></script>
+<script src="assets/js/bootstrap/bootstrap-notify.min.js"></script>
+<script src="assets/js/slick/custom_slick.js"></script>
 
 <!-- Auto Height Js -->
-<script src="../assets/js/auto-height.js"></script>
+<script src="assets/js/auto-height.js"></script>
 
 <!-- Quantity Js -->
-<script src="../assets/js/quantity.js"></script>
+<script src="assets/js/quantity.js"></script>
 
 <!-- Timer Js -->
-<script src="../assets/js/timer1.js"></script>
-<script src="../assets/js/timer2.js"></script>
-<script src="../assets/js/timer3.js"></script>
-<script src="../assets/js/timer4.js"></script>
+<script src="assets/js/timer1.js"></script>
+<script src="assets/js/timer2.js"></script>
+<script src="assets/js/timer3.js"></script>
+<script src="assets/js/timer4.js"></script>
 
 <!-- Fly Cart Js -->
-<script src="../assets/js/fly-cart.js"></script>
+<script src="assets/js/fly-cart.js"></script>
 
 <!-- WOW js -->
-<script src="../assets/js/wow.min.js"></script>
-<script src="../assets/js/custom-wow.js"></script>
+<script src="assets/js/wow.min.js"></script>
+<script src="assets/js/custom-wow.js"></script>
 
 <!-- script js -->
-<script src="../assets/js/script.js"></script>
-<script src="../assets/js/contato.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/contato.js"></script>
 </body>
 
 </html>
